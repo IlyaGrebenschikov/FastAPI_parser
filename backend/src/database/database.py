@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.src.core.settings import get_db_settings
 
 
-engine = create_async_engine(url=get_db_settings().db.create_url())
+engine = create_async_engine(url=get_db_settings().create_url_obj())
 async_session = async_sessionmaker(engine, class_=AsyncSession)
 
 
