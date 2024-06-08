@@ -1,6 +1,7 @@
 import secrets
 from functools import lru_cache
 from pathlib import Path
+from typing import Final
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import DirectoryPath
@@ -45,15 +46,16 @@ class DBSettings(EnvSettings):
 
 
 class SecretSettings:
-    secret_key: str = secrets.token_hex(32)
-    secret_algh: str = 'HS256'
+    secret_key: Final[str] = secrets.token_hex(32)
+    secret_algh: Final[str] = 'HS256'
+    jwt_expiration: Final[int] = 30
 
 
-class Settings:
-    db: DBSettings = DBSettings()
-    secret: SecretSettings = SecretSettings()
+@lru_cache
+def get_db_settings() -> DBSettings:
+    return DBSettings()
 
 
-@lru_cache(typed=True)
-def get_settings() -> Settings:
-    return Settings()
+@lru_cache
+def get_secret_settings() -> SecretSettings:
+    return SecretSettings()
