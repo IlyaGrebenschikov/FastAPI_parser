@@ -1,0 +1,33 @@
+services:
+  app:
+    build: .
+    container_name: app
+    restart: always
+    volumes:
+      - ./:/usr/app/.
+    working_dir: /usr/app/.
+    ports:
+      - "8000:8000"
+    command: bash -c 'uvicorn backend.src.main:app --reload --host 0.0.0.0 --port 8000'
+    networks:
+      - app_network
+    expose:
+      - 8000
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: db
+    restart: always
+    networks:
+      - app_network
+    ports:
+      - 5432
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+
+networks:
+  app_network:
