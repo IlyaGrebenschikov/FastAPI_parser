@@ -9,7 +9,7 @@ from sqlalchemy import URL
 
 
 class EnvSettings(BaseSettings):
-    root_dir: DirectoryPath = Path(__file__).parent.parent.parent
+    root_dir: DirectoryPath = Path(__file__).parent.parent.parent.parent
     model_config = SettingsConfigDict(
         env_file=f'{root_dir}/.env',
         env_file_encoding='utf-8',
@@ -20,6 +20,7 @@ class EnvSettings(BaseSettings):
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
+    DB_URL: str
 
 
 class DBSettings(EnvSettings):
