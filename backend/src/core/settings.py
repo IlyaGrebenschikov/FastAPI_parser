@@ -8,8 +8,11 @@ from pydantic import DirectoryPath
 from sqlalchemy import URL
 
 
+BASE_DIR = Path(__file__).parent.parent.parent.parent
+
+
 class EnvSettings(BaseSettings):
-    root_dir: DirectoryPath = Path(__file__).parent.parent.parent.parent
+    root_dir: DirectoryPath = BASE_DIR
     model_config = SettingsConfigDict(
         env_file=f'{root_dir}/.env',
         env_file_encoding='utf-8',
