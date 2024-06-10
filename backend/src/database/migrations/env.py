@@ -11,6 +11,7 @@ from backend.src.core.settings import get_db_settings
 from backend.src.database.base import Base
 
 from backend.src.api.v1.user.models import UserModel
+from backend.src.api.v1.parser.models import ADModel
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

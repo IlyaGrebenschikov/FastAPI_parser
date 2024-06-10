@@ -1,4 +1,6 @@
-from sqlalchemy.orm import mapped_column
+from typing import List
+
+from sqlalchemy.orm import mapped_column, relationship
 from sqlalchemy.orm import Mapped
 
 from backend.src.database.base import Base
@@ -9,3 +11,4 @@ class UserModel(Base):
     name: Mapped[str] = mapped_column(nullable=False, unique=True)
     email: Mapped[str] = mapped_column(nullable=False, unique=True)
     hashed_password: Mapped[str] = mapped_column(nullable=False)
+    ad: Mapped[List['ADModel']] = relationship('ADModel')
